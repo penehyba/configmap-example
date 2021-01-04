@@ -2,7 +2,7 @@ apiVersion: v1
 kind: List
 items:
  # Setup the permission required to read the config map
- - apiVersion: v1
+ - apiVersion: rbac.authorization.k8s.io/v1
    kind: RoleBinding
    metadata:
      name: role-view-default
@@ -10,9 +10,11 @@ items:
     - kind: ServiceAccount
       name: default
    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
       name: view
 
- - apiVersion: v1
+ - apiVersion: rbac.authorization.k8s.io/v1
    kind: RoleBinding
    metadata:
      name: role-view-jenkins
@@ -20,6 +22,8 @@ items:
     - kind: ServiceAccount
       name: jenkins
    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
       name: view
 
  # ConfigMap to be created to pass application.yml content to Spring Boot
